@@ -1,6 +1,7 @@
 import { DataTypes, INTEGER, Model } from "sequelize";
 import connection from "../connection/connection.js";
 import bcrypt from "bcrypt";
+import Vehicle from "./vehicle.js";
 
 class User extends Model {
   compare = async (myPlaintextPassword) => {
@@ -35,9 +36,11 @@ User.init(
       allowNull: false,
       defaultValue: 2,
     },
-    salt: {
-      type: DataTypes.STRING,
-    },
+    vehiculo:{
+      type: DataTypes.Vehicle,
+      
+    }
+
   },
   {
     sequelize: connection,
