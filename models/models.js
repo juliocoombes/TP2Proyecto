@@ -2,9 +2,10 @@ import Role from "./Role.js";
 import User from "./User.js";
 import Vehicle from "./vehicle.js";
 
-Vehicle.belongsTo(User)
-User.belongsTo(Role)
+// Relaciones de modelos
 Role.hasMany(User)
+User.belongsTo(Role)
+Vehicle.belongsTo(User)
 User.hasOne(Vehicle)
 
 

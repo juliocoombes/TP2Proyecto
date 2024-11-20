@@ -2,7 +2,7 @@ import { DataTypes, Model } from "sequelize";
 import connection from "../connection/connection.js";
 
 class Role extends Model {}
-
+// Declaracion de atributos modelo Role
 Role.init(
   {
     name: {

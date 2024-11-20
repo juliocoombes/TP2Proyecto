@@ -8,5 +8,4 @@ async function roleSeed() {
   }
 }
 
-roleSeed()
 export default roleSeed;

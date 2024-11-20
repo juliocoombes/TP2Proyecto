@@ -4,7 +4,7 @@ import VehicleController from "../controllers/vehicleController.js";
 const router = Router()
 const vehiclesController = new VehicleController;
 
-
+// Declaracion rutas vehiculos
 router.get("/",  vehiclesController.getAllvehicles);
 router.get("/detalle/:patente", vehiclesController.getVehicleByPatente);
 router.post("/formulario", vehiclesController.createVehicle);

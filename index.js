@@ -8,13 +8,16 @@ import rutasUsers from './routes/userRouter.js';
 import roleSeed from "./seed/roleSeed.js";
 import userSeed from "./seed/userSeed.js";
 import vehicleSeed from "./seed/vehicleSeed.js";
+import dotenv from "dotenv";
 
+dotenv.config()
 const app = express()
 const port = 3030
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json())
 
-connection.sync()
+const startServer = async()=> {
+await connection.sync({force:false})
 await roleSeed()
 await userSeed()
 await vehicleSeed()
@@ -22,6 +25,8 @@ await vehicleSeed()
 app.listen(port, () => {
     console.log("Funcionando")
 })
+}
+startServer().catch(err => console.error("Error al iniciar el servidor:", err));
 
 
 app.use("/",rutasMain)

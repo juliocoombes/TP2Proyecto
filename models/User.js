@@ -1,15 +1,14 @@
 import { DataTypes, INTEGER, Model } from "sequelize";
 import connection from "../connection/connection.js";
 import bcrypt from "bcrypt";
-import Vehicle from "./vehicle.js";
-import Role from "./Role.js";
+
 class User extends Model {
   compare = async (myPlaintextPassword) => {
     const data = await bcrypt.compare(myPlaintextPassword, this.pass);
     return data
   };
 }
-
+// Declaracion de atributos modelo usuario
 User.init(
   {
     name: {

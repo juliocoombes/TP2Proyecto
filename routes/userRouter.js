@@ -5,7 +5,7 @@ import UserController from "../controllers/userController.js";
 const userRoutes = Router();
 
 const userController = new UserController();
-
+//Declaracion rutas usuarios
 userRoutes.get("/",  userController.getAllUsers);
 userRoutes.get("/detalle/:id", userController.getUserById);
 userRoutes.post("/formulario", userController.createUser);

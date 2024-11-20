@@ -7,7 +7,7 @@ class Vehicle extends Model{
    
 }
 
-
+// Declaracion de atributos modelo vehiculo
 Vehicle.init(
     {
     patente:{
