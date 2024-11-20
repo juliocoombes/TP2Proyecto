@@ -8,42 +8,42 @@ class UserService {
       });
       return users;
     } catch (error) {
-      throw error;
+      throw new Error("Fallo en la carga de usuarios");
     }
   };
   getUserByIdService = async (id) => {
     try {
-      const users = await User.findAll({
-        where: { id },
-        attributes: ["name", "mail"],
-      });
-      return users;
+      const user = await User.findByPk(id,{
+        attributes:["name","mail"],
+      })
+      if(!user){
+        throw new Error("Usuario no encontrado")
+      }
+      return user;
     } catch (error) {
-      throw error;
+      throw new Error("Fallo en la busqueda de usuario");
     }
   };
   loginService = async (user) => {
     try {
       const { mail, pass } = user;
       const userLogin = await User.findOne({ where: { mail } });
-      if (!userLogin) throw new Error("No pasas");
-      const comparePass = await userLogin.compare(pass);
-      // console.log(
-      //   `🚀 ~ UserService ~ loginService= ~ comparePass:`,
-      //   comparePass
-      // );
-      if (!comparePass) throw new Error("No pasas");
+      if (!userLogin) throw new Error("Credenciales invalidas");
+      const comparePass = await userLogin.compare(pass)
+      if (!comparePass) throw new Error("Credenciales invalidas");
       return userLogin;
     } catch (error) {
       throw error;
     }
   };
   createUserService = async (user) => {
+   
     try {
-      const newUser = await User.create(user);
+      const {name,mail,pass} = user
+    const newUser = await User.create({name,mail,pass})
       return newUser;
-    } catch (error) {
-      throw error;
+    }catch (error) {
+      throw new Error("Error creating user. Please check the provided data.");
     }
   };
   updateUserService = async (data) => {
@@ -60,10 +60,22 @@ class UserService {
       throw error;
     }
   };
+  
 
   deleteUserService = async (id) => {
-    return `deleteUserService ${id}`;
-  };
+    try {
+     const userDeleted = await User.destroy({
+       where : {id :id},
+     });
+     if(userDeleted ===0){
+       throw new Error("Usuario no encontrado");
+     }
+     return {message: "Usuario eliminado"};
+   }catch (error){
+     throw error;
+   }
+   };
+  
 }
 
 export default UserService;

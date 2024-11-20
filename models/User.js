@@ -2,7 +2,7 @@ import { DataTypes, INTEGER, Model } from "sequelize";
 import connection from "../connection/connection.js";
 import bcrypt from "bcrypt";
 import Vehicle from "./vehicle.js";
-
+import Role from "./Role.js";
 class User extends Model {
   compare = async (myPlaintextPassword) => {
     const data = await bcrypt.compare(myPlaintextPassword, this.pass);
@@ -12,35 +12,28 @@ class User extends Model {
 
 User.init(
   {
-    Id:{
-      type : DataTypes.INTEGER,
-      allowNull: false,
-      primaryKey : true,
-    },
     name: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-
     mail: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique:true
+      unique: true,
     },
     pass: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    RoleId: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      defaultValue: 2,
+    salt: {
+      type: DataTypes.STRING,
+      allowNull: true,
     },
-    vehiculo:{
-      type: DataTypes.Vehicle,
-      
+    RoleId:{
+      type:DataTypes.INTEGER,
+      allowNull:false,
+      defaultValue:2
     }
-
   },
   {
     sequelize: connection,

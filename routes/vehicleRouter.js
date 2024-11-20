@@ -1,15 +1,16 @@
 import { Router } from "express";
+
+import VehicleController from "../controllers/vehicleController.js";
 const router = Router()
-
-/**  
-router.get("/listado",vehicleController.listado)
-router.get('/busqueda',vehicleController.search)
-router.get('/:id', vehicleController.detalle);
-router.get('/:id/editar',vehicleController.editar);
-router.delete('/:id', vehicleController.destroy)
-router.post('/remover/:id', vehicleController.destroy);
-**/
+const vehiclesController = new VehicleController;
 
 
+router.get("/",  vehiclesController.getAllvehicles);
+router.get("/detalle/:patente", vehiclesController.getVehicleByPatente);
+router.post("/formulario", vehiclesController.createVehicle);
+router.post("/park/:patente", vehiclesController.parkVehicle);
+router.post("/removeVehicle/:patente",vehiclesController.removeVehicle)
+router.put("/editar/:patente", vehiclesController.updateVehicle);
+router.delete("/:patente", vehiclesController.deleteVehicle);
 
 export default router

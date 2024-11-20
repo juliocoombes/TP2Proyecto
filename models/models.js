@@ -2,10 +2,10 @@ import Role from "./Role.js";
 import User from "./User.js";
 import Vehicle from "./vehicle.js";
 
-
-User.belongsTo(Role)
 Vehicle.belongsTo(User)
-User.hasOne(Vehicle)
+User.belongsTo(Role)
 Role.hasMany(User)
+User.hasOne(Vehicle)
+
 
 export {Role, User,Vehicle}

@@ -1,16 +1,19 @@
 import { DataTypes, Model, Sequelize } from "sequelize";
 import connection from "../connection/connection.js";
-import bcrypt from "bcrypt";
-import User from "./User.js";
+
+const pricePerSecond = 5;
 
 class Vehicle extends Model{
+   
 }
+
 
 Vehicle.init(
     {
     patente:{
         type: DataTypes.STRING,
         allowNull: false,
+        primaryKey:true
     },
     modelo: {
         type:DataTypes.STRING,
@@ -19,15 +22,36 @@ Vehicle.init(
     UserId:{
         type: DataTypes.INTEGER,
         allowNull: false,
-        references:{
-            model:User,
-            key:'Id'
-        }
     },
+    start_time: {
+        type: DataTypes.DATE,
+        allowNull: true,
+      },
+      end_time: {
+        type: DataTypes.DATE,
+        allowNull: true,
+      },
+      total_duration: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+      },
+      total_fee: {
+        type: DataTypes.DECIMAL(10, 2),
+        allowNull: true,
+      },
+      parked: {
+        type : DataTypes.BOOLEAN,
+        allowNull:true
+      }
+   
+
     },
     {
         sequelize:connection,
         modelName:"Vehicle"
     }
+    
 )
+
 export default Vehicle
+export {pricePerSecond}

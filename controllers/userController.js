@@ -20,25 +20,22 @@ class UserController {
       res.status(400).send({ success: false, message: error.message });
     }
   };
-  formulario = (req,res)=>{
-    res.render("formDeRegistroUsuario")
-  }
   createUser = async (req, res, next) => {
+  
     try {
-      const { name, mail, pass } = req.body;
+      const userData = req.body;
       const data = await this.userService.createUserService({
-        name,
-        mail,
-        pass,
-      });
+        ...userData});
       res.status(200).send({ success: true, message: data });
     } catch (error) {
+      console.error(error);
+      let errorMessage = "Error creating user"
+      if (error.name === "SequelizeValidationError") {
+        errorMessage = "Please check the provided data. Validation errors occurred.";
+      }
       res.status(400).send({ success: false, message: error.message });
     }
   };
-  login = (req, res)=>{
-    res.render("loginUsuario")
-  }
   processLogin = async (req, res, next) => {
   
     try {
